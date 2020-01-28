@@ -1,0 +1,11 @@
+<div class="center">
+  <div class="posted_tasks">
+    <ul>
+      <li><%= @task.name %></li>
+      <li><%= @task.description %></li>
+    </ul>
+
+    <%= link_to 'Edit', edit_task_path(@task) %>
+    <%= link_to 'Back', tasks_path %>
+  </div>
+</div>
