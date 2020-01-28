@@ -1,0 +1,20 @@
+<%= link_to '新規タスク作成', new_task_path %>
+
+<div>
+  <table>
+    <tr>
+      <td>タスク名</td>
+      <td>タスク詳細</td>
+    </tr>
+
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= link_to "#{task.description}", task_path(task.id) %></td>
+        <td><%= link_to "編集する", edit_task_path(task.id) %></td>
+        <td><%= link_to "削除する", task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
