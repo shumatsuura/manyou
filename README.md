@@ -1,24 +1,22 @@
-# README
+# Table Structure
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### 1. users table
+  - id: integer
+  - name: string
+  - email: string
+  - password_digest: string
 
-Things you may want to cover:
+#### 2. tasks
+  - id: integer
+  - user_id(FK) : integer
+  - name: string
+  - description: text
+  - priority: string
+  - due_time: timestamp
+  - status: string
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### 3. labels
+  - id: integer
+  - task_id(FK): integer
+  - user_id(FK): intger
+  - name: string
