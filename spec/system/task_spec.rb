@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+
+def visit_with_http_auth(path)
+  username = ENV['BASIC_AUTH_NAME']
+  password = ENV['BASIC_AUTH_PASSWORD']
+  visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#
+  {Capybara.current_session.server.port}#{path}"
+end
+
 RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク一覧画面' do
     before do
@@ -8,7 +16,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスクを作成した場合' do
       it '作成済みのタスクが表示されること' do
-        visit tasks_path
+        visit_with_http_auth tasks_path
         expect(page).to have_content 'task'
       end
     end
