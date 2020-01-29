@@ -1,20 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
-  context 'タスクを作成した場合' do
-    # テストコードを it '~' do end ブロックの中に記載する
-    it '作成済みのタスクが表示されること' do
-      # テストで使用するためのタスクを作成
-      task = FactoryBot.create(:task, name:'task')
+  describe 'タスク一覧画面' do
+    before do
+      @task = FactoryBot.create(:task, name: 'task')
+    end
 
-      # タスク一覧ページに遷移
-      visit tasks_path
+    context 'タスクを作成した場合' do
+      it '作成済みのタスクが表示されること' do
+        visit tasks_path
+        expect(page).to have_content 'task'
+      end
+    end
 
-      # visitした（遷移した）page（タスク一覧ページ）に「task」という文字列が
-      # have_contentされているか。（含まれているか。）ということをexpectする（確認・期待する）
-      expect(page).to have_content 'task'
-
-      # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
+    context '複数のタスクを作成した場合' do
+      it 'タスクが作成日時の降順に並んでいること' do
+        new_task = FactoryBot.create(:task, name: 'new_task')
+        visit tasks_path
+        task_list = all('.task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content 'new_task'
+        expect(task_list[1]).to have_content 'task'
+      end
     end
   end
 
@@ -28,14 +34,14 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄に
         # タスクのタイトルと内容をそれぞれfill_in（入力）する
         # 2.ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-        fill_in 'Name', with: 'passing manyou kadai'
+        fill_in 'タスク名', with: 'passing manyou kadai'
 
         # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-        fill_in 'Description', with: 'step1~5 + option requirement'
+        fill_in 'タスク詳細', with: 'step1~5 + option requirement'
 
         # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
-        click_button 'Create Task'
+        click_button '登録する'
 
         # clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
         # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
