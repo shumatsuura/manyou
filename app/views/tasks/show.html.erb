@@ -6,6 +6,7 @@
       <% if @task.due %>
         <li><%= @task.due.strftime("%Y年%m月%d日 %H:%M") %></li>
       <% end %>
+      
     </ul>
 
     <%= link_to 'Edit', edit_task_path(@task) %>

@@ -1,5 +1,4 @@
 <%= link_to '新規タスク作成', new_task_path %>
-<%= link_to '終了期限でソートする', tasks_path(sort_due: "true"),{class: "sort_menu"} %>
 
 <select id="index_sort">
   <option value="0">ソート：選択してください</option>
@@ -22,7 +21,7 @@
       <tr>
         <td class="task_row"><%= link_to "#{task.name}", task_path(task.id) %></td>
         <td><%= task.description %></td>
-        <td>
+          <td class="task_due_row">
           <% if task.due %>
             <%= task.due.strftime("%Y年%m月%d日 %H:%M") %>
           <% end %>
