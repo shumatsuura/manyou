@@ -4,4 +4,5 @@ ja:
     delete: 削除する
     task_name: タスク名
     task_description: タスク詳細
-    task_due: 終了期限 
+    task_due: 終了期限
+    task_created_at: 登録日時
