@@ -1,4 +1,4 @@
-$ (function() {
+$ (document).on('turbolinks:load',function() {
     $('#index_sort').change(function() {
 
       var html = "";

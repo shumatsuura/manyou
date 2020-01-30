@@ -30,6 +30,28 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[1]).to have_content 'task'
       end
     end
+
+    context 'ソートを行った場合' do
+      it 'タスクが終了期限の降順に並んでいること' do
+
+        current_time1 = DateTime.now
+        n = 0
+        10.times do
+          FactoryBot.create(:task, due: current_time1 + 10.year - n.year)
+          n += 1
+        end
+        @tasks = Task.all
+
+        visit tasks_path
+
+        select '終了期限：降順', from: 'index_sort'
+        sleep 10
+
+        task_list = all('.task_due_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content (current_time1 +9.year).strftime("%Y年%m月%d日 %H:%M")
+
+      end
+    end
   end
 
   describe 'タスク登録画面' do
@@ -38,17 +60,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         # new_task_pathにvisitする（タスク登録ページに遷移する）
         # 1.ここにnew_task_pathにvisitする処理を書く
         visit new_task_path
+        current_time = DateTime.now
 
-        # 「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄に
-        # タスクのタイトルと内容をそれぞれfill_in（入力）する
-        # 2.ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'タスク名', with: 'passing manyou kadai'
-
-        # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'タスク詳細', with: 'step1~5 + option requirement'
+        select current_time.strftime("%Y"), from: 'task_due_1i'
+        select current_time.strftime("%-m月"), from: 'task_due_2i'
+        select current_time.strftime("%d"), from: 'task_due_3i'
+        select current_time.strftime("%H"), from: 'task_due_4i'
+        select current_time.strftime("%M"), from: 'task_due_5i'
 
-        # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
-        # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_button '登録する'
 
         # clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
@@ -57,6 +78,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'タスクが登録されました。'
         expect(page).to have_content 'passing manyou kadai'
         expect(page).to have_content 'step1~5 + option requirement'
+        expect(page).to have_content current_time.strftime("%Y年%m月%d日 %H:%M")
         expect(page).to have_current_path task_path(Task.last.id), ignore_query: true
       end
     end
@@ -65,7 +87,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク詳細画面' do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示されたページに遷移すること' do
-         task = FactoryBot.create(:task, name:'task', description:'pleaseclickhere2')
+         task = FactoryBot.create(:task, name:'pleaseclickhere2', description:'yes')
          visit tasks_path
          click_on 'pleaseclickhere2'
          expect(page).to have_current_path task_path(task.id)
