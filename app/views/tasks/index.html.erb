@@ -1,16 +1,23 @@
 <%= link_to '新規タスク作成', new_task_path %>
+<%= link_to '終了期限でソートする', tasks_path(sort_due: "true") %>
 
 <div>
   <table>
     <tr>
-      <td>タスク名</td>
-      <td>タスク詳細</td>
+      <td><%= t('view.task_name') %></td>
+      <td><%= t('view.task_description') %></td>
+      <td><%= t('view.task_due') %></td>
     </tr>
 
     <% @tasks.each do |task| %>
       <tr>
-        <td class="task_row"><%= task.name %></td>
-        <td><%= link_to "#{task.description}", task_path(task.id) %></td>
+        <td class="task_row"><%= link_to "#{task.name}", task_path(task.id) %></td>
+        <td><%= task.description %></td>
+        <td>
+          <% if task.due %>
+            <%= task.due.strftime("%Y年%m月%d日 %H:%M") %>
+          <% end %>
+        </td>
         <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
         <td><%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
       </tr>

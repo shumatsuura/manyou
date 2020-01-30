@@ -6,4 +6,4 @@ ja:
       task:
         name: タスク名
         description: タスク詳細
-      
+        due: 終了期限
