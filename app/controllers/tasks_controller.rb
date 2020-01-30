@@ -2,7 +2,17 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
 
   def index
-    params[:sort_due] ? @tasks = Task.all.order(due: "DESC") : @tasks = Task.all.order(created_at: "DESC")
+    if params[:sort] == "due_ASC"
+      @tasks = Task.all.order(due: "ASC")
+    elsif params[:sort] == "due_DESC"
+      @tasks = Task.all.order(due: "DESC")
+    elsif params[:sort] == "created_at_DESC"
+      @tasks = Task.all.order(created_at: "ASC")
+    elsif params[:sort] == "created_at_DESC"
+      @tasks = Task.all.order(created_at: "DESC")
+    else
+      @tasks = Task.all.order(created_at: "DESC")
+    end
   end
 
   def show
