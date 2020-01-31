@@ -5,6 +5,6 @@
   Task.create!(name: name,
                description: description,
                due: due
-               status: '未了'
+               status: '未着手'
                )
 end

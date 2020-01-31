@@ -8,6 +8,15 @@
   <option value="created_at_DESC">登録日時：降順</option>
 </select>
 
+<%= form_with(url: tasks_path, method: :get, local: true) do |form| %>
+<td><%= form.label :name_search %></td>
+<td><%= form.text_field :name_search %></td>
+<td><%= form.text_field :status_search %></td>
+
+<td><%= form.submit %></td>
+<% end %>
+
+
 <div>
   <table>
     <tr>
