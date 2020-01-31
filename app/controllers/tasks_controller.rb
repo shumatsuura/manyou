@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   def show
 
   end
- 
+
   def new
     @task = Task.new
   end
@@ -53,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:name,:description,:due)
+    params.require(:task).permit(:name,:description,:due,:status)
   end
 
   def set_task
