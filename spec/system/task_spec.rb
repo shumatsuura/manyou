@@ -25,7 +25,7 @@ RSpec.describe 'タスク管理機能', type: :system, js: true do
       it 'タスクが作成日時の降順に並んでいること' do
         new_task = FactoryBot.create(:task, name: 'new_task')
         visit tasks_path
-        task_list = all('.task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        task_list = all('.task_row')
         expect(task_list[0]).to have_content 'new_task'
         expect(task_list[1]).to have_content 'task'
       end
@@ -45,6 +45,7 @@ RSpec.describe 'タスク管理機能', type: :system, js: true do
         visit tasks_path
 
         select '終了期限：降順', from:'index_sort'
+        sleep 10
 
         task_list = all('.task_due_row') # タスク一覧を配列として取得するため、View側でidを振っておく
         expect(task_list[0]).to have_content (current_time1 +10.year).strftime("%Y年%m月%d日 %H:%M")
