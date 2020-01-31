@@ -1,10 +1,7 @@
 $ (document).on('turbolinks:load',function() {
     $('#index_sort').change(function() {
-
       var html = "";
-
       var this_value = $(this).val();
-
       if (this_value == "due_ASC") {
         html = "?sort=due_ASC"
       } else if (this_value == "due_DESC") {
@@ -16,8 +13,6 @@ $ (document).on('turbolinks:load',function() {
       } else {
         html = ""
       };
-
       window.location.href = "/" + html
-
   });
 });

@@ -27,6 +27,10 @@
           <td><%= form.datetime_select :due %></td>
         </tr>
         <tr>
+          <td><%= form.label :status %></td>
+          <td><%= form.select :status ,['未着手', '着手中', '完了'] %></td>
+        </tr>
+        <tr>
           <td></td>
           <td><%= form.submit %></td>
         </tr>
