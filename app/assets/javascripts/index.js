@@ -16,6 +16,7 @@ $ (document).on('turbolinks:load',function() {
       } else {
         html = ""
       };
+
       window.location.href = current_html + html
   });
 });
