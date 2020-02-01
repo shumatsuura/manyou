@@ -27,6 +27,10 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(due: "ASC")
     elsif params[:sort] == "due_DESC"
       @tasks = Task.all.order(due: "DESC")
+    elsif params[:sort] == "priority_ASC"
+      @tasks = Task.all.order(priority: "ASC")
+    elsif params[:sort] == "priority_DESC"
+      @tasks = Task.all.order(priority: "DESC")
     elsif params[:sort] == "created_at_DESC"
       @tasks = Task.all.order(created_at: "ASC")
     elsif params[:sort] == "created_at_DESC"
@@ -39,6 +43,10 @@ class TasksController < ApplicationController
         @tasks = tasks.order(due: "ASC")
       elsif params[:commit].include?("due_DESC")
         @tasks = tasks.order(due: "DESC")
+      elsif params[:commit].include?("priority_ASC")
+        @tasks = tasks.order(priority: "ASC")
+      elsif params[:commit].include?("priority_DESC")
+        @tasks = tasks.order(priority: "DESC")
       elsif params[:commit].include?("created_at_DESC")
         @tasks = tasks.order(created_at: "ASC")
       elsif params[:commit].include?("created_at_DESC")
@@ -85,7 +93,7 @@ class TasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:name,:description,:due,:status)
+    params.require(:task).permit(:name,:description,:due,:status,:priority)
   end
 
   def set_task
