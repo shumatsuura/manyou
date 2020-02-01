@@ -4,6 +4,8 @@
   <option value="0">ソート：選択してください</option>
   <option value="due_ASC">終了期限：昇順</option>
   <option value="due_DESC">終了期限：降順</option>
+  <option value="priority_ASC">優先順位：昇順</option>
+  <option value="priority_DESC">優先順位：降順</option>
   <option value="created_at_ASC">登録日時：昇順</option>
   <option value="created_at_DESC">登録日時：降順</option>
 </select>
@@ -16,7 +18,6 @@
 <td><%= form.submit :search %></td>
 <% end %>
 
-
 <div>
   <table>
     <tr>
@@ -24,6 +25,7 @@
       <td><%= t('view.task_description') %></td>
       <td><%= t('view.task_due') %></td>
       <td><%= t('view.task_status') %></td>
+      <td><%= t('view.task_priority') %></td>
       <td><%= t('view.task_created_at') %></td>
     </tr>
 
@@ -37,6 +39,7 @@
           <% end %>
         </td>
         <td><%= task.status %></td>
+        <td><%= task.priority %></td>
         <td><%= task.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
         <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
         <td><%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>

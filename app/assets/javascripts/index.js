@@ -9,6 +9,10 @@ $ (document).on('turbolinks:load',function() {
         html = "?sort=due_ASC"
       } else if (this_value == "due_DESC") {
         html = "?sort=due_DESC"
+      } else if (this_value == "priority_ASC") {
+          html = "?sort=priority_ASC"
+      } else if (this_value == "priority_DESC") {
+          html = "?sort=priority_DESC"
       } else if (this_value == "created_at_ASC") {
         html = "?sort=created_at_ASC"
       } else if (this_value == "created_at_DESC") {

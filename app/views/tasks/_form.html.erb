@@ -30,6 +30,8 @@
           <td><%= form.label :status %></td>
           <td><%= form.select :status ,['未着手', '着手中', '完了'] %></td>
         </tr>
+          <td><%= form.label :priority %></td>
+          <td><%= form.select :priority , Task.priorities.keys %></td>
         <tr>
           <td></td>
           <td><%= form.submit %></td>
