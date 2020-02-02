@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 def visit_with_http_auth(path)
   username = ENV['BASIC_AUTH_NAME']
   password = ENV['BASIC_AUTH_PASSWORD']
@@ -11,23 +10,36 @@ end
 RSpec.describe 'タスク管理機能', type: :system, js: true do
   describe 'タスク一覧画面' do
     before do
-      @task = FactoryBot.create(:task, name: 'task' ,due: DateTime.now)
+      @task = FactoryBot.create(:task, name: 'task' ,due: DateTime.now, status: '着手中', priority: 2)
     end
 
     context 'タスクを作成した場合' do
       it '作成済みのタスクが表示されること' do
         visit_with_http_auth tasks_path
         expect(page).to have_content 'task'
+        expect(page).to have_content '着手中' #statusのテスト
+        expect(page).to have_content 'high' #priorityのテスト
       end
     end
 
     context '複数のタスクを作成した場合' do
       it 'タスクが作成日時の降順に並んでいること' do
-        new_task = FactoryBot.create(:task, name: 'new_task')
+        new_task = FactoryBot.create(:task, name: 'new_task', status: '完了', priority: 1)
         visit tasks_path
-        task_list = all('.task_row')
-        expect(task_list[0]).to have_content 'new_task'
-        expect(task_list[1]).to have_content 'task'
+
+        task_name_list = all('.task_name_row')
+        expect(task_name_list[0]).to have_content 'new_task'
+        expect(task_name_list[1]).to have_content 'task'
+
+        task_status_list = all('.task_status_row')
+        expect(task_status_list[0]).to have_content '完了'
+        expect(task_status_list[1]).to have_content '着手中'
+
+        task_priority_list = all('.task_priority_row')
+        expect(task_priority_list[0]).to have_content 'medium'
+        expect(task_priority_list[1]).to have_content 'high'
+
+
       end
     end
 
