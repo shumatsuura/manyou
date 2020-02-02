@@ -31,17 +31,17 @@
 
     <% @tasks.each do |task| %>
       <tr>
-        <td class="task_row"><%= link_to "#{task.name}", task_path(task.id) %></td>
-        <td><%= task.description %></td>
+        <td class="task_name_row"><%= link_to "#{task.name}", task_path(task.id) %></td>
+        <td　class="task_description_row"><%= task.description %></td>
         <td class="task_due_row">
           <% if task.due %>
             <%= task.due.strftime("%Y年%m月%d日 %H:%M") %>
           <% end %>
         </td>
-        <td><%= task.status %></td>
-        <td><%= task.priority %></td>
-        <td><%= task.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
-        <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
+        <td class="task_status_row"><%= task.status %></td>
+        <td class="task_priority_row"><%= task.priority %></td>
+        <td class="task_created_at_row"><%= task.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
+        <td class="task_due_row"><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
         <td><%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
       </tr>
     <% end %>
