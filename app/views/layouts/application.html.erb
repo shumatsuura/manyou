@@ -62,7 +62,7 @@
      </div><!-- /.container-fluid -->
     </nav>
 
-    <div>
+    <div class="container">
       <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
       <% end %>

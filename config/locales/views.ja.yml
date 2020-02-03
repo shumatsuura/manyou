@@ -4,6 +4,7 @@ ja:
     status_search: ステータスで絞り込み
     edit: 編集する
     delete: 削除する
+    back: 戻る
     task_name: タスク名
     task_description: タスク詳細
     task_due: 終了期限
