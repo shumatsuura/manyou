@@ -79,7 +79,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(tasks_params)
-      redirect_to tasks_path, notice:"タスクを編集しました。"
+      redirect_to task_path(@task.id), notice:"タスクを編集しました。"
     else
       render 'edit'
     end

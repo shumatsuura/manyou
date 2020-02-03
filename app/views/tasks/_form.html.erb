@@ -34,7 +34,7 @@
 
       <div class="form-group">
         <%= form.label :priority %><br>
-        <%= form.select :priority , Task.priorities.keys, class: "form-control" %>
+        <%= form.select :priority , Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"),k]}, class: "form-control" %>
       </div>
       <div class="form-group">
         <%= form.submit class: "btn btn-primary" %>

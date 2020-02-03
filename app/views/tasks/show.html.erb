@@ -20,10 +20,10 @@
     </tr>
     <tr>
       <th><%= t('view.task_priority') %>:</th>
-      <td><%= @task.priority %></td>
+      <td><%= @task.priority_i18n %></td>
     </tr>
 
   </table>
-  <%= link_to 'Edit', edit_task_path(@task) %>
-  <%= link_to 'Back', tasks_path %>
+  <%= link_to t('view.edit'), edit_task_path(@task) %>
+  <%= link_to t('view.back'), tasks_path %>
 </div>
