@@ -10,6 +10,58 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-default">
+     <div class="container-fluid">
+       <!-- Brand and toggle get grouped for better mobile display -->
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <%= link_to 'Task Management App', tasks_path, class: "navbar-brand" %> <!-- トップページリンク  -->
+       </div>
+
+       <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+           <ul class="nav navbar-nav">
+             <li><%= link_to 'タスク登録', new_task_path %> </li>
+             <li><%= link_to 'タスク一覧', tasks_path %></li>
+
+             <% if controller.action_name == "index" %>
+               <li class= "navbar-form navbar-left">
+                 <select id="index_sort" class="form-control">
+                   <option value="0">ソート：選択してください</option>
+                   <option value="due_ASC">終了期限：昇順</option>
+                   <option value="due_DESC">終了期限：降順</option>
+                   <option value="priority_ASC">優先順位：昇順</option>
+                   <option value="priority_DESC">優先順位：降順</option>
+                   <option value="created_at_ASC">登録日時：昇順</option>
+                   <option value="created_at_DESC">登録日時：降順</option>
+                 </select>
+               </li>
+             <% end %>
+           </ul>
+
+           <% if controller.action_name == "index" %>
+             <%= form_with(url: tasks_path, method: :get, local: true, class: "navbar-form navbar-left") do |form| %>
+              <div class="form-group">
+                <%= form.text_field :name_search,
+                  class: "form-control",
+                  placeholder: "Name Search",
+                  value: (params[:name_search] if params[:name_search] ) %>
+
+                <%= form.select :status_search, ['未着手','着手中','完了'],{include_blank: "#{t 'view.status_search'}",
+                selected: (params[:status_search] if params[:status_search])} , class: "form-control"%>
+                <%= form.submit :"#{t 'view.search'}", class: "btn btn-primary" %>
+              </div>
+             <% end %>
+           <% end %>
+         </div>
+     </div><!-- /.container-fluid -->
+    </nav>
+
     <div>
       <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>

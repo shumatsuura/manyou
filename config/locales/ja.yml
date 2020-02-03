@@ -142,8 +142,9 @@ ja:
       prompt: 選択してください
     submit:
       create: 登録する
-      submit: 保存する
+      submit: 送信する
       update: 更新する
+
   number:
     currency:
       format:
@@ -204,3 +205,9 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  enums:
+    task:
+      priority:
+        low: 低
+        medium: 中
+        high: 高

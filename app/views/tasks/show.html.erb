@@ -1,16 +1,29 @@
-<div class="center">
-  <div class="posted_tasks">
-    <ul>
-      <li><%= @task.name %></li>
-      <li><%= @task.description %></li>
-      <% if @task.due %>
-        <li><%= @task.due.strftime("%Y年%m月%d日 %H:%M") %></li>
-      <% end %>
-      <li><%= @task.status %></li>
+<div class="container">
+  <table class="table">
+    <tr>
+      <th><%= t('view.task_name') %>:</th>
+      <td><%= @task.name %></td>
+    </tr>
+    <tr>
+      <th><%= t('view.task_description') %>:</th>
+      <td><%= @task.description %></td>
+    </tr>
+    <% if @task.due %>
+      <tr>
+        <th><%= t('view.task_due') %>:</th>
+        <td><%= @task.due.strftime("%Y年%m月%d日 %H:%M") %> </td>
+      </tr>
+    <% end %>
+    <tr>
+      <th><%= t('view.task_status') %>: </th>
+      <td><%= @task.status %></td>
+    </tr>
+    <tr>
+      <th><%= t('view.task_priority') %>:</th>
+      <td><%= @task.priority %></td>
+    </tr>
 
-    </ul>
-
-    <%= link_to 'Edit', edit_task_path(@task) %>
-    <%= link_to 'Back', tasks_path %>
-  </div>
+  </table>
+  <%= link_to 'Edit', edit_task_path(@task) %>
+  <%= link_to 'Back', tasks_path %>
 </div>

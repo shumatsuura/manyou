@@ -1,5 +1,7 @@
 ja:
   view:
+    search: 検索する
+    status_search: ステータスで絞り込み
     edit: 編集する
     delete: 削除する
     task_name: タスク名
