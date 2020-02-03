@@ -18,7 +18,7 @@ RSpec.describe 'タスク管理機能', type: :system, js: true do
         visit_with_http_auth tasks_path
         expect(page).to have_content 'task'
         expect(page).to have_content '着手中' #statusのテスト
-        expect(page).to have_content 'high' #priorityのテスト
+        expect(page).to have_content '高' #priorityのテスト
       end
     end
 
@@ -36,8 +36,8 @@ RSpec.describe 'タスク管理機能', type: :system, js: true do
         expect(task_status_list[1]).to have_content '着手中'
 
         task_priority_list = all('.task_priority_row')
-        expect(task_priority_list[0]).to have_content 'medium'
-        expect(task_priority_list[1]).to have_content 'high'
+        expect(task_priority_list[0]).to have_content '中'
+        expect(task_priority_list[1]).to have_content '高'
 
 
       end

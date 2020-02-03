@@ -1,35 +1,16 @@
+statuses = ['未着手','着手中','完了']
+
+
 50.times do |n|
-  name = "test_name"
+  name = "test_name#{n}"
   description = "test"
   due = DateTime.now + rand(10).week
+  status = statuses[rand(0..2)]
+  priority = rand(0..2)
   Task.create!(name: name,
                description: description,
                due: due,
-               status: '未着手',
-               priority: 0,
+               status: status,
+               priority: priority,
               )
-end
-
-50.times do |n|
-  name = "test_name"
-  description = "test"
-  due = DateTime.now + rand(10).week
-  Task.create!(name: name,
-               description: description,
-               due: due,
-               status: '着手中',
-               priority: 1,
-               )
-end
-
-50.times do |n|
-  name = "test_name"
-  description = "test"
-  due = DateTime.now + rand(10).week
-  Task.create!(name: name,
-               description: description,
-               due: due,
-               status: '完了',
-               priority: 2,
-               )
 end
