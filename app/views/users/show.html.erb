@@ -1,2 +1,12 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1><%= @user.name %>のページ</h1>
+  <table>
+    <tr>
+      <td>名前:</td>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <td>メールアドレス:</td>
+      <td><%= @user.email %></td>
+    </tr>
+
+  </table>

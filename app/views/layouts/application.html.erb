@@ -28,7 +28,11 @@
            <ul class="nav navbar-nav">
              <li><%= link_to 'タスク登録', new_task_path %> </li>
              <li><%= link_to 'タスク一覧', tasks_path %></li>
-
+             <li><%= link_to 'Sign Up', new_user_path %></li>
+             <li><%= link_to 'ログイン', new_session_path %></li>
+             <% if logged_in? %>
+              <li><%= link_to 'ログアウト', session_path(current_user.id), method: :delete %></li>
+             <% end %>
              <% if controller.action_name == "index" %>
                <li class= "navbar-form navbar-left">
                  <select id="index_sort" class="form-control">
