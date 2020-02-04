@@ -20,18 +20,28 @@
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </button>
-         <%= link_to 'Task Management App', tasks_path, class: "navbar-brand" %> <!-- トップページリンク  -->
+         <% if logged_in? %>
+            <%= link_to 'Task Management App', tasks_path, class: "navbar-brand" %> <!-- トップページリンク  -->
+         <% else %>
+            <%= link_to 'Task Management App', root_path, class: "navbar-brand" %> <!-- トップページリンク  -->
+         <% end %>
        </div>
 
        <!-- Collect the nav links, forms, and other content for toggling -->
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
            <ul class="nav navbar-nav">
-             <li><%= link_to 'タスク登録', new_task_path %> </li>
-             <li><%= link_to 'タスク一覧', tasks_path %></li>
-             <li><%= link_to 'Sign Up', new_user_path %></li>
-             <li><%= link_to 'ログイン', new_session_path %></li>
+             <% unless logged_in? %>
+               <li><%= link_to 'Sign Up', new_user_path %></li>
+               <li><%= link_to 'ログイン', new_session_path %></li>
+             <% end %>
              <% if logged_in? %>
-              <li><%= link_to 'ログアウト', session_path(current_user.id), method: :delete %></li>
+                <li><%= link_to 'タスク登録', new_task_path %> </li>
+                <li><%= link_to 'タスク一覧', tasks_path %></li>
+                <li><%= link_to 'My Page', user_path(current_user.id) %></li>
+                <li><%= link_to 'ログアウト', session_path(current_user.id), method: :delete %></li>
+                <% if current_user.admin == true %>
+                  <li><%= link_to '管理画面', admin_users_path %></li>
+                <% end %>
              <% end %>
              <% if controller.action_name == "index" %>
                <li class= "navbar-form navbar-left">
@@ -62,6 +72,9 @@
               </div>
              <% end %>
            <% end %>
+
+
+
          </div>
      </div><!-- /.container-fluid -->
     </nav>

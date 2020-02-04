@@ -6,6 +6,7 @@
       <th><%= t('view.task_due') %></th>
       <th><%= t('view.task_status') %></th>
       <th><%= t('view.task_priority') %></th>
+      <th>ユーザー</th>
       <th><%= t('view.task_created_at') %></th>
       <th></th>
       <th></th>
@@ -22,6 +23,7 @@
         </td>
         <td class="task_status_row"><%= task.status %></td>
         <td class="task_priority_row"><%= task.priority_i18n %></td>
+        <td class="user_id_row"><% if task.user %><%= task.user.name %><% end %></td>
         <td class="task_created_at_row"><%= task.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
         <td class="task_due_row"><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
         <td><%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
