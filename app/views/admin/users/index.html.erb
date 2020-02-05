@@ -19,7 +19,7 @@
             <%= user.tasks.count %>
           <% end %>
         </td>
-        <td class="user_admin_row"><%= link_to "#{user.admin}", admin_user_path(user.id, params: {user: { admin: user.toggle(:admin).admin}}), method: :put,data: {confirm: '変更していいですか？'} %></td>
+        <td class="user_admin_row"><%= user.admin %></td>
         <td class="user_created_at_row"><%= user.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
         <td class="user_updated_at_row"><%= user.updated_at.strftime("%Y年%m月%d日 %H:%M") %></td>
         <td class="user_edit_row"><%= link_to t('view.edit'), edit_admin_user_path(user.id) %></td>
