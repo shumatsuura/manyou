@@ -2,15 +2,15 @@
   <h2><%= @user.name %>のページ</h2>
   <table class="table">
     <tr>
-      <th>名前:</th>
+      <th><%= t('view.user_name') %>:</th>
       <td><%= @user.name %></td>
     </tr>
     <tr>
-      <th>メールアドレス:</th>
+      <th><%= t('view.user_email') %>:</th>
       <td><%= @user.email %></td>
     </tr>
     <tr>
-      <th>admin権限:</th>
+      <th><%=t('view.user_email') %>:</th>
       <td><%= @user.admin %></td>
     </tr>
 
