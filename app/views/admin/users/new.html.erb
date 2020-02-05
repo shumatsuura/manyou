@@ -11,7 +11,7 @@
     <% end %>
   </div>
 
-  <%= form_with(model: @user, url: new_admin_user_path, local: true) do |f| %>
+  <%= form_with(model: @user, url: admin_users_path, local: true) do |f| %>
     <table>
       <tr>
         <td><%= f.label :name %></td>

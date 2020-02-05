@@ -26,6 +26,20 @@ RSpec.describe 'ユーザー機能', type: :system, js: true do
       expect(page).to have_current_path admin_users_path
     end
 
+    it 'アドミン管理ユーザー作成画面にアクセスできる' do
+      visit new_admin_user_path
+
+      fill_in 'Name', with: 'user_generated_by_admin_user'
+      fill_in 'Email', with: 'user_generated_by_admin_user@sample.com'
+      fill_in 'Password', with: "password"
+      fill_in 'Password confirmation', with: "password"
+
+      click_button '登録する'
+
+      expect(page).to have_content 'user_generated_by_admin_user'
+      expect(page).to have_content 'user_generated_by_admin_user@sample.com'
+    end
+
     it 'アドミン管理ユーザー詳細画面にアクセスできる' do
       visit admin_user_path(@user2.id)
       expect(page).to have_current_path admin_user_path(@user2.id)
