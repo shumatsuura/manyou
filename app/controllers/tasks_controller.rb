@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
+  before_action :authorized_user?, only:[:show, :edit, :update, :destroy]
+
   PER =20
 
   def index
@@ -9,7 +11,7 @@ class TasksController < ApplicationController
       search_function
       sort_function(@tasks)
     else
-      redirect_to root_path, notice: "ログインしてください。"
+      redirect_to new_session_path, notice: "ログインしてください。"
     end
   end
 
@@ -106,4 +108,13 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
   end
 
+  def authorized_user?
+    if not logged_in?
+      redirect_to new_session_path, notice:'ログインしてください。'
+    elsif current_user.admin
+    elsif current_user.tasks.ids.include?(params[:id].to_i)
+    else
+      redirect_to tasks_path, notice:'権限がありません。'
+    end
+  end
 end

@@ -43,7 +43,7 @@
                   <li><%= link_to '管理画面', admin_users_path %></li>
                 <% end %>
              <% end %>
-             <% if controller.action_name == "index" %>
+             <% if controller.controller_name == "tasks" && controller.action_name == "index" %>
                <li class= "navbar-form navbar-left">
                  <select id="index_sort" class="form-control">
                    <option value="0">ソート：選択してください</option>
@@ -58,7 +58,7 @@
              <% end %>
            </ul>
 
-           <% if controller.action_name == "index" %>
+           <% if controller.controller_name == "tasks" && controller.action_name == "index" %>
              <%= form_with(url: tasks_path, method: :get, local: true, class: "navbar-form navbar-left") do |form| %>
               <div class="form-group">
                 <%= form.text_field :name_search,
@@ -72,8 +72,6 @@
               </div>
              <% end %>
            <% end %>
-
-
 
          </div>
      </div><!-- /.container-fluid -->

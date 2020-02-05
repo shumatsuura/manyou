@@ -5,7 +5,6 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
-
   end
 
   def create
@@ -31,14 +30,20 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to admin_users_path
+    if @user.update(user_params)
+      redirect_to admin_user_path(@user.id), notice: "更新しました。"
+    else
+      render 'edit'
+    end
   end
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to admin_users_path
+    if @user.destroy
+      redirect_to admin_users_path, notice:"削除しました。"
+    else
+      render 'edit'
+    end
   end
 
   private
@@ -51,7 +56,7 @@ class Admin::UsersController < ApplicationController
     if logged_in? == false
       redirect_to new_session_path, notice: "ログインしてください。"
     elsif current_user.admin == false
-      redirect_to new_session_path, notice: "権限がありません。"
+      redirect_to tasks_path, notice: "権限がありません。"
     end
   end
 

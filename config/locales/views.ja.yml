@@ -10,4 +10,9 @@ ja:
     task_due: 終了期限
     task_status: ステータス
     task_priority: 優先順位
-    task_created_at: 登録日時
+    tasks_count: タスク数
+    created_at: 登録日時
+    updated_at: 更新日時
+    user_name: ユーザー名
+    user_email: Eメール
+    user_admin: アドミン権限

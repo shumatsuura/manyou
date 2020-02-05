@@ -18,17 +18,16 @@ class User < ApplicationRecord
 
     def one_admin_user_at_least
       if User.where(admin: true).count == 1 && self.admin == true
-        errors.add(:user, '少なくとも１名のadmin権限者が必要です。')
+        errors.add(:user, 'には少なくとも１名のadmin権限者が必要です。')
         throw :abort
-        redirect_to admin_users_path
       end
     end
 
     def one_admin_user_at_least_update
       if User.where(admin: true).count ==0
-        errors.add(:user, '少なくとも１名のadmin権限者が必要です。')
-        throw :abort
-        redirect_to admin_users_path
+        errors.add(:user, 'には少なくとも１名のadmin権限者が必要です。')
+        #throw :abort
+        raise ActiveRecord::RecordInvalid, self
       end
     end
 
