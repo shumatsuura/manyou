@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-          redirect_to user_path(@user.id), notice: "Sign Upしました！"
+      redirect_to admin_user_path(@user.id), notice: "ユーザーを作成しました。"
     else
       render'new'
     end
@@ -56,6 +56,7 @@ class Admin::UsersController < ApplicationController
     if logged_in? == false
       redirect_to new_session_path, notice: "ログインしてください。"
     elsif current_user.admin == false
+
       redirect_to tasks_path, notice: "権限がありません。"
     end
   end
