@@ -1,18 +1,36 @@
 <div class ="container">
+  <h2><%= @user.name %>のページ</h2>
   <table class="table">
+    <tr>
+      <th>名前:</th>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <th>メールアドレス:</th>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <th>admin権限:</th>
+      <td><%= @user.admin %></td>
+    </tr>
+
+  </table>
+
+  <table class="table">
+    <% if @user.tasks.any? == true %>
     <tr>
       <th><%= t('view.task_name') %></th>
       <th><%= t('view.task_description') %></th>
       <th><%= t('view.task_due') %></th>
       <th><%= t('view.task_status') %></th>
       <th><%= t('view.task_priority') %></th>
-      <th><%= t('view.user_name') %></th>
-      <th><%= t('view.created_at') %></th>
+      <th>ユーザー</th>
+      <th><%= t('view.task_created_at') %></th>
       <th></th>
       <th></th>
     </tr>
 
-    <% @tasks.each do |task| %>
+    <% @user.tasks.each do |task| %>
       <tr>
         <td class="task_name_row"><%= link_to "#{task.name}", task_path(task.id) %></td>
         <td class="task_description_row"><%= task.description %></td>
@@ -30,6 +48,7 @@
       </tr>
     <% end %>
 
+    <% end %>
+    <%= link_to "Edit", edit_admin_user_path(@user.id) %>
   </table>
-  <%= paginate @tasks %>
 </div>

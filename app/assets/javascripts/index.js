@@ -16,19 +16,19 @@ $ (document).on('turbolinks:load',function() {
       if (location['href'].match(/page=/) != null){
         //ページネーション中
         if (this_value == "due_ASC") {
-          html = "&sort=due_ASC"
+            html = "&sort=due_ASC"
         } else if (this_value == "due_DESC") {
-          html = "&sort=due_DESC"
+            html = "&sort=due_DESC"
         } else if (this_value == "priority_ASC") {
             html = "&sort=priority_ASC"
         } else if (this_value == "priority_DESC") {
             html = "&sort=priority_DESC"
         } else if (this_value == "created_at_ASC") {
-          html = "&sort=created_at_ASC"
+            html = "&sort=created_at_ASC"
         } else if (this_value == "created_at_DESC") {
-          html = "&sort=created_at_DESC"
+            html = "&sort=created_at_DESC"
         } else {
-          html = ""
+            html = ""
         };
         //ページネーションしてない
       } else {

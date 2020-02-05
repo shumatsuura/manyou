@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Create User</h1>
+  <div id="error_explanation">
+    <% if @user.errors.any? %>
+      <h2><%= pluralize(@user.errors.count, "error") %>prohibited this @user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <%= form_with(model: @user, url: new_admin_user_path, local: true) do |f| %>
+    <table>
+      <tr>
+        <td><%= f.label :name %></td>
+        <td><%= f.text_field :name %></td>
+      <tr>
+        <td><%= f.label :email %></td>
+        <td><%= f.email_field :email %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :password %></td>
+        <td><%= f.password_field :password %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :password_confirmation %></td>
+        <td><%= f.password_field :password_confirmation %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :admin %></td>
+        <td><%= f.check_box :admin, {selected: "true"}, "true", "false" %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.submit %></td>
+      </tr>
+    </table>
+  <% end %>
+</div>
