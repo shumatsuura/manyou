@@ -1,0 +1,2 @@
+class LabelRelation < ApplicationRecord
+end
