@@ -16,21 +16,3 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :labels
 
 end
-
-
-# task = Task.first
-# task.labels.create(name: "test1")
-
-# task = Task.last
-# task.labels.create(name: "test2")
-# task.labels.create(name: "test3")
-# task.labels.create(name: "test4")
-
-# user = task.user
-# task = user.tasks.first
-# task.labels.create(name: "test5")
-
-# task = Task.last
-# task.label_relations.create(label_id: 5)
-
-# task.labels #　label_id: 5が含まれる必要あり

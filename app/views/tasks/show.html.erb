@@ -22,8 +22,16 @@
       <th><%= t('view.task_priority') %>:</th>
       <td><%= @task.priority_i18n %></td>
     </tr>
-
+    <tr>
+      <th>ラベル:</th>
+      <td>
+        <% @task.labels.each do |label| %>
+          <%= label.name %>
+        <% end %>
+      </td>
+    </tr>
   </table>
+
   <%= link_to t('view.edit'), edit_task_path(@task) %>
   <%= link_to t('view.back'), tasks_path %>
 </div>
