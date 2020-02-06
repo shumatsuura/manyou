@@ -29,8 +29,8 @@ class LabelsController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    redirect_to taskss_path, notice:"削除しました。"
+    @label.destroy
+    redirect_to user_path(@label.user.id), notice:"削除しました。"
   end
 
   private

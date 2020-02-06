@@ -20,14 +20,6 @@ class TasksController < ApplicationController
     status_search_keyword = params[:status_search]
     label_search_keyword = params[:label_search]
 
-    # if name_search_keyword.present? && status_search_keyword.present?
-    #   @tasks = Task.search_by_name_and_status(current_user.id, name_search_keyword,status_search_keyword).page(params[:page]).per(PER)
-    # elsif name_search_keyword.present? && status_search_keyword.blank?
-    #   @tasks = Task.search_by_name(current_user.id, name_search_keyword).page(params[:page]).per(PER)
-    # elsif name_search_keyword.blank? && status_search_keyword.present?
-    #   @tasks = Task.search_by_status(current_user.id, status_search_keyword).page(params[:page]).per(PER)
-    # end
-
     if name_search_keyword.present? or status_search_keyword.present? or label_search_keyword.present?
       @tasks = Task.where(user_id: current_user.id)
     end

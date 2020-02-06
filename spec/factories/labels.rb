@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :label do
-    name { "MyString" }
+    association :user
+
+    sequence(:name) { |n| "label_#{n}" }
   end
 end

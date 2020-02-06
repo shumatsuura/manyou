@@ -40,14 +40,14 @@
       <div class="form-group">
         <%= form.label :label %><br>
         <% @labels.each do |label| %>
-         <%= form.check_box :label_ids,
-         { multiple: true,
-           checked: @task.label_ids.include?(label[:id]),
-           #disabled: label[:disabled],
-           include_hidden: false },#チェックされなかった値を送るかどうか
-           label[:id]#チェックされた場合の値
-           %>
-         <%= label.name %>
+          <%= form.check_box :label_ids,
+           { multiple: true,
+             checked: @task.label_ids.include?(label[:id]),
+             #disabled: label[:disabled],
+             include_hidden: false },#チェックされなかった値を送るかどうか
+             label[:id]#チェックされた場合の値
+             %>
+          <label class="label label-default"><%= label.name %></label>
         <% end %>
       </div>
 

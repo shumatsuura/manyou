@@ -9,8 +9,9 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system, js: true do
   before do
-    user = User.create(id: 1, name:"matsu", email: "sample@sample.com", password:"password", password_confirmation: "password")
-    task = FactoryBot.create(:task, name: 'task' ,due: DateTime.now, status: '着手中', priority: 2, user_id: 1)
+    @user = User.create(id: 1, name:"matsu", email: "sample@sample.com", password:"password", password_confirmation: "password")
+    @user2 = User.create(id: 2, name:"matsu2", email: "sample2@sample.com", password:"password", password_confirmation: "password")
+    @task = FactoryBot.create(:task, name: 'task' ,due: DateTime.now, status: '着手中', priority: 2, user_id: 1)
     visit root_path
     click_on 'ログイン'
     fill_in 'Email', with: 'sample@sample.com'
@@ -21,7 +22,6 @@ RSpec.describe 'タスク管理機能', type: :system, js: true do
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
       it '作成済みのタスクが表示されること' do
-
         visit tasks_path
         expect(page).to have_content 'task'
         expect(page).to have_content '着手中' #statusのテスト
@@ -95,13 +95,13 @@ RSpec.describe 'タスク管理機能', type: :system, js: true do
   end
 
   describe 'タスク詳細画面' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示されたページに遷移すること' do
-         task = FactoryBot.create(:task, name:'pleaseclickhere2', description:'yes', user_id: 1)
-         visit tasks_path
-         click_on 'pleaseclickhere2'
-         expect(page).to have_current_path task_path(task.id)
-       end
-     end
+    context '任意のタスク詳細画面に遷移した場合' do
+      it '該当タスクの内容が表示されたページに遷移すること' do
+        task = FactoryBot.create(:task, name:'pleaseclickhere2', description:'yes', user_id: 1)
+        visit tasks_path
+        click_on 'pleaseclickhere2'
+        expect(page).to have_current_path task_path(task.id)
+      end
+    end
   end
 end

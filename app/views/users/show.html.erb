@@ -52,7 +52,7 @@
         <td>ラベル</td>
         <td>
           <% @user.labels.each do |label| %>
-            <%= link_to "#{label.name}", edit_label_path(label.id) %>
+            <label class="label label-default"><%= link_to "#{label.name}", edit_label_path(label.id) %></label>
           <% end %>
         </td>
         <td><%= link_to '新規ラベル追加', new_label_path %></td>
