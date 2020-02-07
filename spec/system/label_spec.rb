@@ -15,7 +15,7 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
     context '新規ユーザーが新規にタスクを登録する場合' do
       it '既存ラベルは存在しない' do
         visit new_task_path
-        label_list = all('.label-default')
+        label_list = all('.label-primary')
         expect(label_list.count).to eq 0
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
         click_on '登録する'
         expect(page).to have_content 'ラベルが登録されました。'
         expect(page).to have_current_path user_path(@user.id)
-        label_list = all('.label-default')
+        label_list = all('.label-primary')
         expect(label_list[0]).to have_content 'ラベル１'
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
 
       it '作成済みのラベルが表示される' do
         visit new_task_path
-        label_list = all('.label-default')
+        label_list = all('.label-primary')
         expect(label_list.count).to eq 5
         expect(label_list[0]).to have_content 'label_1'
       end
@@ -93,7 +93,7 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
         visit edit_task_path(@task.id)
         expect(page).to have_current_path edit_task_path(@task.id)
 
-        label_list = all('.label-default')
+        label_list = all('.label-primary')
         expect(page).not_to have_content "#{other_user_label.name}"
       end
     end
@@ -136,5 +136,4 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
       expect(page).to have_current_path tasks_path
     end
   end
-
 end

@@ -1,26 +1,18 @@
-<div class="container-fluid">
+<div class="container">
   <h1>Log in</h1>
-  <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
-    <table>
-      <tr>
-        <td>
-          <%= f.label :email %>
-        </td>
-        <td>
-          <%= f.email_field :email %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.label :password %>
-        </td>
-        <td>
-          <%= f.password_field :password %>
-        </td>
-      </tr>
-      <tr>
-        <td><%= f.submit "Log in" %></td>
-      </tr>
-    </table>
-  <% end %>
+  <div class="form">
+    <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control"%>
+      </div>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Log in" ,class: "btn btn-primary"%>
+      </div>
+    <% end %>
+  </div>
 </div>
