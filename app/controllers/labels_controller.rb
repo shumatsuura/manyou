@@ -17,7 +17,13 @@ class LabelsController < ApplicationController
   end
 
   def edit
-
+    if not logged_in?
+      redirect_to root_path, notice: "ログインしてください。"
+    else
+      if not current_user.label_ids.include?(params[:id].to_i)
+        redirect_to tasks_path, notice: "権限がありません。"
+      end
+    end
   end
 
   def update

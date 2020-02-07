@@ -12,7 +12,7 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
-  has_many :label_relations
+  has_many :label_relations, dependent: :destroy
   has_many :labels, through: :label_relations, source: :label
   accepts_nested_attributes_for :labels
 

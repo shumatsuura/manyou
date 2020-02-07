@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'ラベル機能', type: :system, js: true do
   before do
-    @user = User.create(id: 1, name:"matsu", email: "sample@sample.com", password:"password", password_confirmation: "password")
-    @user2 = User.create(id: 2, name:"matsu2", email: "sample2@sample.com", password:"password", password_confirmation: "password")
-    @task = FactoryBot.create(:task, name: 'task' ,due: DateTime.now, status: '着手中', priority: 2, user_id: 1)
+    @user = User.create(name:"matsu", email: "sample@sample.com", password:"password", password_confirmation: "password")
+    @task = FactoryBot.create(:task, name: 'task' ,due: DateTime.now, status: '着手中', priority: 2, user_id: @user.id)
     visit root_path
     click_on 'ログイン'
     fill_in 'Email', with: 'sample@sample.com'
@@ -23,7 +22,7 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
 
     context '新規にラベルを作成する場合' do
       it 'ユーザー詳細ページから新規ラベル作成ページに遷移できる' do
-        visit user_path(1)
+        visit user_path(@user.id)
         click_on '新規ラベル追加'
         expect(page).to have_current_path(new_label_path)
       end
@@ -33,7 +32,7 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
         fill_in 'Name', with: "ラベル１"
         click_on '登録する'
         expect(page).to have_content 'ラベルが登録されました。'
-        expect(page).to have_current_path user_path(1)
+        expect(page).to have_current_path user_path(@user.id)
         label_list = all('.label-default')
         expect(label_list[0]).to have_content 'ラベル１'
       end
@@ -41,15 +40,12 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
 
     context 'ラベルとタスクを関連づけする場合' do
       before do
-
         n =1
         5.times do
-          Label.create(id: n, name: "label_#{n}",user_id: 1)
+          Label.create(id: n, name: "label_#{n}",user_id: @user.id)
           n += 1
         end
-
-        @other_users_label = Label.create(id: n, name: "other_users_label", user_id: 2)
-
+        @n = n
       end
 
       it '作成済みのラベルが表示される' do
@@ -78,22 +74,27 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
         expect(page).to have_content 'label_1'
       end
 
-      it 'タスク編集時に作成済みのラベルと関連づけできる' do
+      it 'タスク編集時に作成済みの複数のラベルと関連づけできる' do
         visit edit_task_path(@task.id)
         expect(page).to  have_current_path edit_task_path(@task.id)
         check "task_label_ids_1"
+        check "task_label_ids_2"
 
         click_button '更新する'
         label_list = all('.label-default')
         expect(label_list[0]).to have_content 'label_1'
+        expect(label_list[1]).to have_content 'label_2'
       end
 
       it '他人が作成したラベルは表示されない' do
+        other_user = User.create(name:"matsu2", email: "sample2@sample.com", password:"password", password_confirmation: "password")
+        other_user_label = other_user.labels.create(id: @n,name: "other_user_label")
+
         visit edit_task_path(@task.id)
         expect(page).to have_current_path edit_task_path(@task.id)
 
         label_list = all('.label-default')
-        expect(page).not_to have_content "#{@other_users_label.name}"
+        expect(page).not_to have_content "#{other_user_label.name}"
       end
     end
 
@@ -113,15 +114,27 @@ RSpec.describe 'ラベル機能', type: :system, js: true do
         expect(page).to have_current_path user_path(@user.id)
       end
 
-      it '削除できる' do
+      it 'ラベルを削除できる' do
         visit user_path(@user.id)
         click_on 'test_label'
         click_on '削除する'
 
         expect(page).to_not have_content "testlabel"
         expect(page).to have_current_path user_path(@user.id)
-
       end
     end
   end
+
+  describe 'ラベル機能のアクセス権限' do
+    before do
+      @other_user = User.create(name:"matsu2", email: "sample2@sample.com", password:"password", password_confirmation: "password")
+      @other_user_label = @other_user.labels.create(name: "other_user_label")
+    end
+
+    it '他人のラベルの編集ページにアクセスできない' do
+      visit edit_label_path(@other_user_label.id)
+      expect(page).to have_current_path tasks_path
+    end
+  end
+
 end

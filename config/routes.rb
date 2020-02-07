@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users, only:[:new,:show,:create]
   resources :sessions, only:[:new, :create, :destroy]
-  
+
   namespace :admin do
     resources :users
   end
 
-  resources :labels
+  resources :labels, only:[:new,:create,:edit,:update,:destroy]
 
 end
