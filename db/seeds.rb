@@ -27,5 +27,7 @@ statuses = ['未着手','着手中','完了']
                           )
   task.save
 
+  task.labels.create(name: "#{task_name}_label#{i}", user_id: task.user.id)
   end
+
 end

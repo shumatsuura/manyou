@@ -6,9 +6,14 @@ class Task < ApplicationRecord
 
   enum priority: {low: 0, medium: 1, high: 2}
 
-  scope :search_by_name_and_status, -> (user_id,key1,key2) {where(user_id: user_id).where("name LIKE ?","%#{key1}%").where(status: key2)}
-  scope :search_by_name, -> (user_id,key) {where(user_id: user_id).where("name LIKE ?","%#{key}%")}
-  scope :search_by_status, -> (user_id,key) {where(user_id: user_id).where(status: key)}
+  scope :search_by_name, -> (key) {where("name LIKE ?","%#{key}%")}
+  scope :search_by_status, -> (key) {where(status: key)}
+  scope :search_by_label, -> (key) {where(id: LabelRelation.where(label_id: Label.where("name LIKE ?","%#{key}%").pluck(:id)).pluck(:task_id))}
+
   belongs_to :user
+
+  has_many :label_relations, dependent: :destroy
+  has_many :labels, through: :label_relations, source: :label
+  accepts_nested_attributes_for :labels
 
 end

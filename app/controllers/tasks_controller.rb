@@ -18,13 +18,26 @@ class TasksController < ApplicationController
   def search_function
     name_search_keyword = params[:name_search]
     status_search_keyword = params[:status_search]
+    label_search_keyword = params[:label_search]
 
-    if name_search_keyword.present? && status_search_keyword.present?
-      @tasks = Task.search_by_name_and_status(current_user.id, name_search_keyword,status_search_keyword).page(params[:page]).per(PER)
-    elsif name_search_keyword.present? && status_search_keyword.blank?
-      @tasks = Task.search_by_name(current_user.id, name_search_keyword).page(params[:page]).per(PER)
-    elsif name_search_keyword.blank? && status_search_keyword.present?
-      @tasks = Task.search_by_status(current_user.id, status_search_keyword).page(params[:page]).per(PER)
+    if name_search_keyword.present? or status_search_keyword.present? or label_search_keyword.present?
+      @tasks = Task.where(user_id: current_user.id)
+    end
+
+    if name_search_keyword.present?
+      @tasks = @tasks.search_by_name(name_search_keyword)
+    end
+
+    if status_search_keyword.present?
+      @tasks = @tasks.search_by_status(status_search_keyword)
+    end
+
+    if label_search_keyword.present?
+      @tasks = @tasks.search_by_label(label_search_keyword)
+    end
+
+    if name_search_keyword.present? or status_search_keyword.present? or label_search_keyword.present?
+      @tasks = @tasks.page(params[:page]).per(PER)
     end
   end
 
@@ -68,6 +81,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @labels = current_user.labels
   end
 
   def create
@@ -81,6 +95,7 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @labels = current_user.labels
 
   end
 
@@ -101,7 +116,7 @@ class TasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:name,:description,:due,:status,:priority)
+    params.require(:task).permit(:name,:description,:due,:status,:priority,label_ids: [])
   end
 
   def set_task

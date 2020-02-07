@@ -12,7 +12,9 @@ class User < ApplicationRecord
     after_update :one_admin_user_at_least_update
 
     has_secure_password
-    has_many :tasks ,dependent: :destroy
+
+    has_many :tasks, dependent: :destroy
+    has_many :labels, dependent: :destroy
 
     private
 

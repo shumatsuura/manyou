@@ -41,20 +41,21 @@ RSpec.describe 'タスク管理機能', type: :model do
   end
 
   it 'neme検索' do
-    tasks = Task.search_by_name(@task1.user.id,'testname_1')
+    tasks = Task.search_by_name('testname_1')
     expect(tasks.pluck(:name)).to include('testname_1')
     expect(tasks.pluck(:name)).not_to include('testname_2')
   end
 
   it 'status検索' do
-    tasks = Task.search_by_status(@task3.user.id,'完了')
+    tasks = Task.search_by_status('完了')
     expect(tasks.pluck(:status)).to include('完了')
     expect(tasks.pluck(:status)).not_to include('着手中')
     expect(tasks.pluck(:status)).not_to include('未着手')
   end
 
   it 'name & status検索' do
-    tasks = Task.search_by_name_and_status(@task1.user.id,'testname_1','着手中')
+    tasks = Task.search_by_name('testname_1')
+    tasks = tasks.search_by_status('着手中')
 
     expect(tasks.pluck(:name)).to include('testname_1')
     expect(tasks.pluck(:name)).not_to include('testname_2')

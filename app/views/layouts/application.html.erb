@@ -66,8 +66,17 @@
                   placeholder: "Name Search",
                   value: (params[:name_search] if params[:name_search] ) %>
 
-                <%= form.select :status_search, ['未着手','着手中','完了'],{include_blank: "#{t 'view.status_search'}",
-                selected: (params[:status_search] if params[:status_search])} , class: "form-control"%>
+                <%= form.text_field :label_search,
+                  class: "form-control",
+                  placeholder: "Label Search",
+                  value: (params[:label_search] if params[:label_search] ) %>
+
+                <%= form.select :status_search,
+                  ['未着手','着手中','完了'],
+                  {include_blank: "#{t 'view.status_search'}",
+                  selected: (params[:status_search] if params[:status_search])},
+                  class: "form-control"%>
+
                 <%= form.submit :"#{t 'view.search'}", class: "btn btn-primary" %>
               </div>
              <% end %>

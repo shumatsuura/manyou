@@ -36,9 +36,27 @@
         <%= form.label :priority %><br>
         <%= form.select :priority , Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"),k]}, class: "form-control" %>
       </div>
+
+      <div class="form-group">
+        <%= form.label :label %><br>
+        <% @labels.each do |label| %>
+          <%= form.check_box :label_ids,
+           { multiple: true,
+             checked: @task.label_ids.include?(label[:id]),
+             #disabled: label[:disabled],
+             include_hidden: false },#チェックされなかった値を送るかどうか
+             label[:id]#チェックされた場合の値
+             %>
+          <label class="label label-default"><%= label.name %></label>
+        <% end %>
+      </div>
+
       <div class="form-group">
         <%= form.submit class: "btn btn-primary" %>
       </div>
     <% end %>
+  </div>
+  <div>
+
   </div>
 </div>
