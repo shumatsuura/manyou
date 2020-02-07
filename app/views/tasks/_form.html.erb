@@ -2,8 +2,8 @@
   <div class="form">
     <%= form_with(model: @task, local: true) do |form| %>
       <% if @task.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+        <div id="error_explanation" class="alert alert-danger">
+          <h4><%= @task.errors.count %>件のエラーがあります。</h4>
           <ul>
             <% @task.errors.full_messages.each do|msg| %>
               <li><%= msg %></li>
@@ -47,7 +47,7 @@
              include_hidden: false },#チェックされなかった値を送るかどうか
              label[:id]#チェックされた場合の値
              %>
-          <label class="label label-default"><%= label.name %></label>
+          <label class="label label-primary"><%= label.name %></label>
         <% end %>
       </div>
 

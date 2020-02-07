@@ -90,7 +90,8 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to task_path(@task), notice:"タスクが登録されました。"
     else
-      render 'new'
+      @labels = current_user.labels
+      render new_task_path
     end
   end
 
@@ -103,7 +104,8 @@ class TasksController < ApplicationController
     if @task.update(tasks_params)
       redirect_to task_path(@task.id), notice:"タスクを編集しました。"
     else
-      render 'edit'
+      @labels = current_user.labels
+      render edit_task_path(@task.id)
     end
 
   end
