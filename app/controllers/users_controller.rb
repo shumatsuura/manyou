@@ -21,6 +21,8 @@ class UsersController < ApplicationController
     if logged_in?
       if current_user.id == params[:id].to_i
         @user = User.find(params[:id])
+        threshold = DateTime.now + 1.day
+        @expired_tasks = @user.tasks.where('due <= ?', threshold).where("(status = ?) or (status = ?)", '未着手', '着手中')
       else
         redirect_to tasks_path, notice:"権限がありません。"
       end
