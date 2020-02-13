@@ -1,0 +1,15 @@
+<div class="container">
+  <table class="table">
+    <tr>
+      <th><%= t('view.group_name') %>:</th>
+      <td><%= @group.name %></td>
+    </tr>
+    <tr>
+      <th><%= t('view.group_description') %>:</th>
+      <td><%= @group.description %></td>
+    </tr>
+  </table>
+
+  <%= link_to t('view.edit'), edit_group_path(@group) %>
+  <%= link_to t('view.back'), groups_path %>
+</div>

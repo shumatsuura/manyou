@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  resources :groups
+  resources :group_relations, only: [:create, :destroy]
+
   resources :labels, only:[:new,:create,:edit,:update,:destroy]
 
 end

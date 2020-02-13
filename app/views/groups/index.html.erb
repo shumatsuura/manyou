@@ -1,0 +1,34 @@
+<div class ="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-6">
+          グループ一覧
+        </div>
+
+        <div class="col-xs-6 text-right">
+          <%= link_to t('view.create_new_group'), new_group_path, class: "btn btn-primary btn-xs" %>
+        </div>
+      </div>
+    </div>
+      <table class="table panel-body">
+        <tr>
+          <th><%= t('view.group_name') %></th>
+          <th><%= t('view.group_description') %></th>
+          <th></th>
+          <th></th>
+        </tr>
+
+        <% @groups.each do |group| %>
+          <tr>
+            <td><%= link_to "#{group.name}", group_path(group.id) %></td>
+            <td><%= group.description %></td>
+            <td><%= link_to t('view.join'), groups_path(group.id),method: :post %></td>
+            <td><%= link_to t('view.edit'), edit_group_path(group.id) %></td>
+            <td><%= link_to t('view.delete'), group_path(group.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
+          </tr>
+        <% end %>
+      </table>
+
+  </div>
+</div>
