@@ -29,6 +29,11 @@ class UsersController < ApplicationController
     else
       redirect_to new_session_path, notice: "ログインしてください。"
     end
+
+    if @expired_tasks.count > 0
+      number = @expired_tasks.count
+      flash[:danger] = "期限切れ、期限直前のタスクが#{number}件あります。"
+    end
   end
 
   private
