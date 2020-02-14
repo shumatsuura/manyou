@@ -38,10 +38,12 @@
                 <li><%= link_to 'タスク登録', new_task_path %> </li>
                 <li><%= link_to 'タスク一覧', tasks_path %></li>
                 <li><%= link_to 'My Page', user_path(current_user.id) %></li>
+                <li><%= link_to 'Group', groups_path %></li>
                 <li><%= link_to 'ログアウト', session_path(current_user.id), method: :delete %></li>
                 <% if current_user.admin == true %>
                   <li><%= link_to '管理画面', admin_users_path %></li>
                 <% end %>
+
              <% end %>
              <% if controller.controller_name == "tasks" && controller.action_name == "index" %>
                <li class= "navbar-form navbar-left">
@@ -57,6 +59,7 @@
                </li>
              <% end %>
            </ul>
+           <p class= "navbar-text navbar-right"><span><%= "#{current_user.name}としてログイン中" if current_user.present? %></span></p>
 
            <% if controller.controller_name == "tasks" && controller.action_name == "index" %>
              <%= form_with(url: tasks_path, method: :get, local: true, class: "navbar-form navbar-left") do |form| %>

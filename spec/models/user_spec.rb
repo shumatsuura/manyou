@@ -40,7 +40,5 @@ RSpec.describe User, type: :model do
       user.update(admin: false)
       expect(User.where(admin: true).count).to eq 1
     end
-
   end
-
 end

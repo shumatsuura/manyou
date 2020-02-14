@@ -1,0 +1,92 @@
+<div class="container">
+  <table class="table">
+    <tr>
+      <th><%= t('view.group_name') %>:</th>
+      <td><%= @group.name %></td>
+    </tr>
+    <tr>
+      <th><%= t('view.group_description') %>:</th>
+      <td><%= @group.description %></td>
+    </tr>
+    <tr>
+      <th><%= t('view.group_admin') %>:</th>
+      <td><%= @group.user.name %></td>
+    </tr>
+  </table>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-6">
+          メンバー一覧
+        </div>
+        <div class="col-xs-6 text-right">
+
+        </div>
+      </div>
+    </div>
+      <table class="table panel-body">
+        <tr>
+          <th><%= t('view.member_name') %></th>
+          <th><%= t('view.member_email') %></th>
+        </tr>
+
+        <% @group.members.each do |member| %>
+          <tr>
+            <td><%= link_to "#{member.name}", user_path(member.id) %></td>
+            <td><%=  member.email %></td>
+          </tr>
+        <% end %>
+      </table>
+
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-6">
+          グループタスク一覧
+        </div>
+        <div class="col-xs-6 text-right">
+          <%= link_to "グループタスク作成", new_group_group_task_path(group_id: params[:id]) %>
+        </div>
+      </div>
+    </div>
+      <table class="table panel-body">
+        <tr>
+          <th><%= t('view.task_name') %></th>
+          <th><%= t('view.task_description') %></th>
+          <th><%= t('view.task_due') %></th>
+          <th><%= t('view.task_status') %></th>
+          <th><%= t('view.task_priority') %></th>
+          <th><%= t('view.user_name') %></th>
+          <th><%= t('view.created_at') %></th>
+          <th></th>
+          <th></th>
+        </tr>
+
+        <% @group_tasks.each do |task| %>
+        <tr>
+          <td class="task_name_row"><%= link_to "#{task.name}", group_group_task_path(@group.id,task.id) %></td>
+          <td class="task_description_row"><%= task.description %></td>
+          <td class="task_due_row">
+            <% if task.due %>
+              <%= task.due.strftime("%Y年%m月%d日 %H:%M") %>
+            <% end %>
+          </td>
+          <td class="task_status_row"><%= task.status %></td>
+          <td class="task_priority_row"><%= task.priority_i18n %></td>
+          <td class="task_priority_row"><%= task.user.name %></td>
+          <td class="task_created_at_row"><%= task.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
+          <td class="task_due_row"><%= link_to t('view.edit'), edit_group_group_task_path(@group.id,task.id) %></td>
+          <td><%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
+        </tr>
+        <% end %>
+      </table>
+
+  </div>
+  <% if current_user == @group.user %>
+    <%= link_to t('view.edit'), edit_group_path(@group) %>
+  <% end %>
+  <%= link_to t('view.back'), groups_path %>
+</div>

@@ -18,3 +18,10 @@ ja:
     user_email: Eメール
     user_admin: アドミン権限
     create_new_user: 新規ユーザー作成
+    create_new_group: 新規グループ作成
+    group_admin: グループ管理者
+    group_name: グループ名
+    group_description: グループ詳細
+    group_join: グループに参加する
+    group_exit: グループから抜ける
+    group_user: グループ管理者
