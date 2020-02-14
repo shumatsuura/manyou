@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :group do
-    name { "MyString" }
-    description { "MyText" }
-    user { nil }
+    association :user
+    sequence(:name) { |n| "group_#{n}" }
+    sequence(:description) { |n| "group_description_#{n}" }
   end
 end
