@@ -16,7 +16,6 @@
           <th><%= t('view.group_name') %></th>
           <th><%= t('view.group_description') %></th>
           <th><%= t('view.group_user') %></th>
-          <th></th>
         </tr>
 
         <% @groups.each do |group| %>
@@ -27,10 +26,7 @@
             <td>
               <% if not current_user.joined_groups.ids.include?(group.id) %>
                 <%= link_to t('view.group_join'), group_relations_path(group_id: group.id), method: :post %>
-              <% end %>
-            </td>
-            <td>
-              <% if current_user.joined_groups.ids.include?(group.id) %>
+              <% else %>
                 <%= link_to t('view.group_exit'), group_relation_path(current_user.group_relations.find_by(group_id: group.id).id), method: :delete %>
               <% end %>
             </td>
