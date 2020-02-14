@@ -15,7 +15,7 @@
         <tr>
           <th><%= t('view.group_name') %></th>
           <th><%= t('view.group_description') %></th>
-          <th></th>
+          <th><%= t('view.group_user') %></th>
           <th></th>
         </tr>
 
@@ -23,9 +23,19 @@
           <tr>
             <td><%= link_to "#{group.name}", group_path(group.id) %></td>
             <td><%= group.description %></td>
-            <td><%= link_to t('view.join'), groups_path(group.id),method: :post %></td>
-            <td><%= link_to t('view.edit'), edit_group_path(group.id) %></td>
-            <td><%= link_to t('view.delete'), group_path(group.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
+            <td><%= group.user.name %></td>
+            <td>
+              <% if not current_user.joined_groups.ids.include?(group.id) %>
+                <%= link_to t('view.group_join'), group_relations_path(group_id: group.id), method: :post %>
+              <% end %>
+            </td>
+            <td>
+              <% if current_user.joined_groups.ids.include?(group.id) %>
+                <%= link_to t('view.group_exit'), group_relation_path(current_user.group_relations.find_by(group_id: group.id).id), method: :delete %>
+              <% end %>
+            </td>
+            <td><%= link_to t('view.edit'), edit_group_path(group.id) if current_user == group.user %></td>
+            <td><%= link_to t('view.delete'), group_path(group.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} if current_user == group.user %></td>
           </tr>
         <% end %>
       </table>

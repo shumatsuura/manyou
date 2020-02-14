@@ -16,7 +16,7 @@ class User < ApplicationRecord
     has_many :tasks, dependent: :destroy
     has_many :labels, dependent: :destroy
 
-    has_many :groups
+    has_many :groups, dependent: :destroy
     has_many :group_relations
     has_many :joined_groups, through: :group_relations, source: :group
 

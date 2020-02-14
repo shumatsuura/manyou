@@ -8,7 +8,10 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  resources :groups
+  resources :groups do
+    resources :group_tasks
+  end
+
   resources :group_relations, only: [:create, :destroy]
 
   resources :labels, only:[:new,:create,:edit,:update,:destroy]

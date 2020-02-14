@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="form">
+    <%= form_with(model: @task,url: group_group_tasks_path, local: true) do |form| %>
+      <% if @task.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h4><%= @task.errors.count %>件のエラーがあります。</h4>
+          <ul>
+            <% @task.errors.full_messages.each do|msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :description %><br>
+        <%= form.text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :due %><br>
+        <%= form.datetime_select :due, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :status ,class: "form-control-label" %><br>
+        <%= form.select :status ,['未着手', '着手中', '完了'], class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :priority %><br>
+        <%= form.select :priority , Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"),k]}, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :label %><br>
+        <% @labels.each do |label| %>
+          <%= form.check_box :label_ids,
+           { multiple: true,
+             checked: @task.label_ids.include?(label[:id]),
+             #disabled: label[:disabled],
+             include_hidden: false },#チェックされなかった値を送るかどうか
+             label[:id]#チェックされた場合の値
+             %>
+          <label class="label label-primary"><%= label.name %></label>
+        <% end %>
+      </div>
+      <%= form.hidden_field :group_id, :value => params[:group_id] %>
+
+      <div class="form-group">
+        <%= form.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+
+  </div>
+</div>

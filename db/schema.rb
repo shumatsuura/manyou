@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_023520) do
+ActiveRecord::Schema.define(version: 2020_02_13_055946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "group_relations", force: :cascade do |t|
-    t.string "user_id"
-    t.string "group_id"
+    t.integer "user_id"
+    t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "group_id"], name: "index_group_relations_on_user_id_and_group_id", unique: true
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_023520) do
     t.string "status", default: "未了", null: false
     t.integer "priority", default: 0, null: false
     t.bigint "user_id"
-    t.string "group_id"
+    t.integer "group_id"
     t.index ["name", "due", "status"], name: "index_tasks_on_name_and_due_and_status"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
