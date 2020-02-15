@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="form">
+    <%= form_with(model: @group, local: true) do |form| %>
+      <% if @group.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h4><%= @group.errors.count %>件のエラーがあります。</h4>
+          <ul>
+            <% @group.errors.full_messages.each do|msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>d
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :description %><br>
+        <%= form.text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

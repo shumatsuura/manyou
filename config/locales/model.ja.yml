@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       task: タスク
+      group: グループ
     attributes:
       task:
         name: タスク名
@@ -9,4 +10,6 @@ ja:
         due: 終了期限
         status: ステータス
         priority: 優先順位
-  
+      group:
+        name: グループ名
+        description: グループ詳細

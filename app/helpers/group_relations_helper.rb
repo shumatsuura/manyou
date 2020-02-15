@@ -1,0 +1,2 @@
+module GroupRelationsHelper
+end
