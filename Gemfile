@@ -16,7 +16,7 @@ gem 'kaminari'
 gem 'enum_help'
 gem 'bcrypt'
 gem 'faker'
-gem 'cloudinary', require: false
+gem 'cloudinary', '= 1.11.1', require: false
 gem 'activestorage-cloudinary-service'
 
 group :development, :test do
