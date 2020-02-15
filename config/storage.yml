@@ -12,8 +12,6 @@ cloudinary:
   api_key:    <%= ENV['CLOUDINARY_API_KEY'] %>
   api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
 
-
-
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3
