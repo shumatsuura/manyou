@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :model do
-
   before do
     @task1 = FactoryBot.create(:task, name: 'testname_1', status: '着手中')
     @task2 = FactoryBot.create(:task, name: 'testname_2', status: '着手中')
