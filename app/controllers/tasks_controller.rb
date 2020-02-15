@@ -102,9 +102,11 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(tasks_params)
-      params[:task][:attached_file_ids].each do |attached_file_id|
-        attached_file = @task.attached_files.find(attached_file_id)
-        attached_file.purge
+      if params[:task][:attached_file_ids].present?
+        params[:task][:attached_file_ids].each do |attached_file_id|
+          attached_file = @task.attached_files.find(attached_file_id)
+          attached_file.purge
+        end
       end
       redirect_to task_path(@task.id), notice:"タスクを編集しました。"
     else
