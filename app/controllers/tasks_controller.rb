@@ -102,9 +102,13 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(tasks_params)
+      params[:task][:attached_file_ids].each do |attached_file_id|
+        attached_file = @task.attached_files.find(attached_file_id)
+        attached_file.purge
+      end
       redirect_to task_path(@task.id), notice:"タスクを編集しました。"
     else
-      @labels = current_user.labels
+      @labels = current_user.labels #保存されなかった場合に再度編集ページでラベルを表示する
       render edit_task_path(@task.id)
     end
 
@@ -118,7 +122,7 @@ class TasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:name,:description,:due,:status,:priority,label_ids: [])
+    params.require(:task).permit(:name,:description,:due,:status,:priority,label_ids: [], attached_files: [])
   end
 
   def set_task

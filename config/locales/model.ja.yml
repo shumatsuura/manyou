@@ -10,6 +10,8 @@ ja:
         due: 終了期限
         status: ステータス
         priority: 優先順位
+        label: ラベル
+        attached_files: 添付ファイル
       group:
         name: グループ名
         description: グループ詳細

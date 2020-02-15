@@ -30,8 +30,16 @@
         <% end %>
       </td>
     </tr>
+    <tr>
+      <th>添付ファイル</th>
+      <td>
+        <% @task.attached_files.each do |attached_file| %>
+          <%= link_to "#{attached_file.filename}", rails_blob_path(attached_file) %>
+        <% end %>
+      </td>
+    </tr>
   </table>
 
-  <%= link_to t('view.edit'), edit_task_path(@task) %>
+  <%= link_to t('view.edit'), edit_group_group_task_path(params[:group_id],@task.id) %>
   <%= link_to t('view.back'), group_path(params[:group_id]) %>
 </div>
