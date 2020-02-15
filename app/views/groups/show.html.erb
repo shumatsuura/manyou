@@ -60,9 +60,8 @@
           <th><%= t('view.task_status') %></th>
           <th><%= t('view.task_priority') %></th>
           <th><%= t('view.user_name') %></th>
+          <th>区分</th>
           <th><%= t('view.created_at') %></th>
-          <th></th>
-          <th></th>
         </tr>
 
         <% @group_tasks.each do |task| %>
@@ -77,6 +76,7 @@
           <td class="task_status_row"><%= task.status %></td>
           <td class="task_priority_row"><%= task.priority_i18n %></td>
           <td class="task_priority_row"><%= task.user.name %></td>
+          <td> <%= current_user.read_tasks.ids.include?(task.id) ? '既読' : '未読' %></td>
           <td class="task_created_at_row"><%= task.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
           <td class="task_due_row"><%= link_to t('view.edit'), edit_group_group_task_path(@group.id,task.id) %></td>
           <td><%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>

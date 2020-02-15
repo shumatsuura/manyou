@@ -4,7 +4,9 @@ class GroupTasksController < ApplicationController
   before_action :authorized_user_for_new_show?, only:[:new,:show]
 
   def show
-
+    if not current_user.read_tasks.ids.include?(params[:id])
+      current_user.reads.create(task_id: params[:id])
+    end
   end
 
   def new
