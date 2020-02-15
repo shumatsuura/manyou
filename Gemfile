@@ -16,6 +16,8 @@ gem 'kaminari'
 gem 'enum_help'
 gem 'bcrypt'
 gem 'faker'
+gem 'cloudinary', require: false
+gem 'activestorage-cloudinary-service'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -44,11 +46,6 @@ group :test do
   gem 'chromedriver-helper'
   gem 'webdrivers'
   gem 'database_cleaner'
-end
-
-group :production do
-  gem 'cloudinary', require: false
-  gem 'activestorage-cloudinary-service'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
