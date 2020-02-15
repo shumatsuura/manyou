@@ -31,6 +31,10 @@ class GroupTasksController < ApplicationController
 
   def update
     if @task.update(tasks_params)
+      params[:task][:attached_file_ids].each do |attached_file_id|
+        attached_file = @task.attached_files.find(attached_file_id)
+        attached_file.purge
+      end
       redirect_to task_path(@task.id), notice:"グループタスクを編集しました。"
     else
       @labels = current_user.labels
@@ -47,7 +51,7 @@ class GroupTasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:name, :description, :due, :status, :priority, :group_id,label_ids: [])
+    params.require(:task).permit(:name, :description, :due, :status, :priority, :group_id,label_ids: [], attached_files: [])
   end
 
   def set_task
