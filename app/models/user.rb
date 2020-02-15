@@ -20,6 +20,9 @@ class User < ApplicationRecord
     has_many :group_relations, dependent: :destroy
     has_many :joined_groups, through: :group_relations, source: :group
 
+    has_many :reads, dependent: :destroy
+    has_many :read_tasks, through: :reads, source: :task
+
     private
 
     def one_admin_user_at_least

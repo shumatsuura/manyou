@@ -16,4 +16,7 @@ class Task < ApplicationRecord
   has_many :labels, through: :label_relations, source: :label
   accepts_nested_attributes_for :labels
 
+  has_many :reads, dependent: :destroy
+  has_many :read_user, through: :reads, source: :user
+
 end

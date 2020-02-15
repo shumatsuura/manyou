@@ -14,7 +14,6 @@ class GroupsController < ApplicationController
     else
       render 'new'
     end
-
   end
 
   def index
@@ -26,7 +25,7 @@ class GroupsController < ApplicationController
       redirect_to groups_path, notice: '権限がありません。'
     end
     @members = @group.members
-    @group_tasks = Task.where(user_id: @members.ids).where(group_id: params[:id]) + current_user.tasks.where(group_id: params[:id])
+    @group_tasks = Task.where(user_id: @members.ids).where(group_id: params[:id]) + @group.user.tasks.where(group_id: params[:id])
   end
 
   def edit
