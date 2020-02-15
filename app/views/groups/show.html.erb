@@ -1,5 +1,18 @@
 <div class="container">
-  <table class="table">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-6">
+          グループ情報
+        </div>
+        <div class="col-xs-6 text-right">
+          <% if current_user == @group.user %>
+            <%= link_to t('view.edit'), edit_group_path(@group) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <table class="table panel-body">
     <tr>
       <th><%= t('view.group_name') %>:</th>
       <td><%= @group.name %></td>
@@ -13,6 +26,7 @@
       <td><%= @group.user.name %></td>
     </tr>
   </table>
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -76,17 +90,22 @@
           <td class="task_status_row"><%= task.status %></td>
           <td class="task_priority_row"><%= task.priority_i18n %></td>
           <td class="task_priority_row"><%= task.user.name %></td>
-          <td> <%= current_user.read_tasks.ids.include?(task.id) ? '既読' : '未読' %></td>
+          <td><%= current_user.read_tasks.ids.include?(task.id) ? '既読' : '未読' %></td>
           <td class="task_created_at_row"><%= task.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
-          <td class="task_due_row"><%= link_to t('view.edit'), edit_group_group_task_path(@group.id,task.id) %></td>
-          <td><%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %></td>
+          <td class="task_due_row">
+            <% if current_user == task.user %>
+              <%= link_to t('view.edit'), edit_group_group_task_path(@group.id,task.id) %>
+            <% end %>
+          </td>
+          <td>
+            <% if current_user == task.user %>
+              <%= link_to t('view.delete'), task_path(task.id), method: :delete ,data: {confirm: '本当に削除していいですか？'} %>
+            <% end %>
+          </td>
         </tr>
         <% end %>
       </table>
 
   </div>
-  <% if current_user == @group.user %>
-    <%= link_to t('view.edit'), edit_group_path(@group) %>
-  <% end %>
   <%= link_to t('view.back'), groups_path %>
 </div>
