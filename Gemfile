@@ -18,6 +18,8 @@ gem 'bcrypt'
 gem 'faker'
 gem 'cloudinary', '= 1.11.1', require: false
 gem 'activestorage-cloudinary-service'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

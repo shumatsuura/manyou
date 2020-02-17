@@ -17,6 +17,7 @@ ja:
     user_name: ユーザー名
     user_email: Eメール
     user_admin: アドミン権限
+    user_profile_picture: プロフィール画像
     create_new_user: 新規ユーザー作成
     create_new_group: 新規グループ作成
     group_admin: グループ管理者

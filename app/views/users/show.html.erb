@@ -13,7 +13,12 @@
         <th><%= t('view.user_email') %>:</th>
         <td><%= @user.email %></td>
       </tr>
-
+      <tr>
+        <th><%= t('view.user_profile_picture') %>:</th>
+        <td>
+          <%= image_tag @user.profile_picture.url if @user.profile_picture.present? %><br>
+        </td>
+      </tr>
     </table>
   </div>
 

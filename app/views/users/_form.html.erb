@@ -1,0 +1,48 @@
+<div class="container">
+  <h1>Sign up</h1>
+  <div id="error_explanation">
+    <% if @user.errors.any? %>
+      <h2><%= pluralize(@user.errors.count, "error") %>prohibited this @user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <%= form_with(model: @user, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: "form-control" %>
+    </div>
+
+    <% if controller.action_name == "edit" %>
+      <div class="form-group">
+        <%= f.label :profile_picture %>
+        <%= f.file_field :profile_picture%>
+      </div>
+
+    <% end %>
+
+    <div class="form-group">
+      <%= f.submit class: "btn btn-primary"%>
+    </div>
+
+  <% end %>
+</div>

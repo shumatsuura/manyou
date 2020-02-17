@@ -29,6 +29,11 @@
         <td><%= f.password_field :password_confirmation %></td>
       </tr>
 
+      <div>
+        <td><%= f.label :profile_picture %></td>
+        <td><%= f.file_field :profile_picture%></td>
+      </div>
+
       <tr>
         <td><%= f.label :admin %></td>
         <td><%= f.check_box :admin, {selected: "true"}, "true", "false" %></td>
