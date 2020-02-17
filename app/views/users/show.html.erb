@@ -2,7 +2,16 @@
   <h4><%= @user.name %>のページ</h4>
   <div class="panel panel-default">
     <div class="panel-heading">
-      プロフィール
+      <div class="row">
+        <div class="col-xs-6">
+          プロフィール
+        </div>
+        <div class="col-xs-6 text-right">
+          <% if current_user == @user %>
+            <%= link_to t('view.edit'), edit_user_path(@user) %>
+          <% end %>
+        </div>
+      </div>
     </div>
     <table class="table panel-body">
       <tr>
