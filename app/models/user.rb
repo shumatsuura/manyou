@@ -24,6 +24,8 @@ class User < ApplicationRecord
     has_many :reads, dependent: :destroy
     has_many :read_tasks, through: :reads, source: :task
 
+    mount_uploader :profile_picture, ImageUploader
+
     private
 
     def one_admin_user_at_least

@@ -34,7 +34,7 @@
       <th>添付ファイル</th>
       <td>
         <% @task.attached_files.each do |attached_file| %>
-          <%= link_to "#{attached_file.filename}", rails_blob_path(attached_file) %>
+          <<li><%= link_to "#{attached_file.filename}", rails_blob_path(attached_file) %></li>
         <% end %>
       </td>
     </tr>

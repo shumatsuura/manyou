@@ -33,6 +33,12 @@
         <th><%=t('view.admin') %>:</th>
         <td><%= @user.admin %></td>
       </tr>
+
+      <tr>
+        <th><%= t('view.user_profile_picture') %>:</th>
+        <td><%= image_tag @user.profile_picture.url if @user.profile_picture.present? %>
+        </td>
+      </tr>
     </table>
   </div>
 
