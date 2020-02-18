@@ -113,18 +113,37 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      ラベル管理
+      <div class="row">
+        <div class="col-xs-6">
+          ラベル管理
+        </div>
+        <div class="col-xs-6 text-right">
+          <%= link_to '新規ラベル追加', new_label_path %>
+        </div>
+      </div>
     </div>
-
-    <table class="table panel-body">
-      <tr>
-        <td>
-          <% @user.labels.each do |label| %>
-            <%= link_to "#{label.name}", edit_label_path(label.id), class: "label label-primary" %>
-          <% end %>
-        </td>
-        <td><%= link_to '新規ラベル追加', new_label_path %></td>
-      </tr>
-    </table>
+      <table class="table panel-body">
+        <tr>
+          <th>
+            保有ラベル
+          </th>
+          <td>
+            <% @user.labels.each do |label| %>
+              <%= link_to "#{label.name}", edit_label_path(label.id), class: "label label-primary" %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            ラベル使用状況
+          </th>
+          <td>
+            <% @labels_ids_and_used_times = LabelRelation.where(label_id: @user.labels.ids).group(:label_id).count %>
+            <% @graph_data = @labels_ids_and_used_times.map { |key,value| [Label.find(key).name, value]}.to_h %>
+            <%= pie_chart @graph_data %>
+          </td>
+          <td></td>
+        </tr>
+      </table>
   </div>
 </div>
