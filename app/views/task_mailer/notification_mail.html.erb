@@ -1,0 +1,28 @@
+<h1>終了期限切れ、もしくは間も無く終了期限です。</h1>
+<%= "#{@target_task.user.name}様"%>
+<p>現時点で下記のタスクが未了となっております。</p>
+
+<table class="table">
+  <tr>
+    <th><%= t('view.task_name') %>:</th>
+    <td><%= @target_task.name %></td>
+  </tr>
+  <tr>
+    <th><%= t('view.task_description') %>:</th>
+    <td><%= @target_task.description %></td>
+  </tr>
+  <% if @target_task.due %>
+    <tr>
+      <th><%= t('view.task_due') %>:</th>
+      <td><%= @target_task.due.strftime("%Y年%m月%d日 %H:%M") %> </td>
+    </tr>
+  <% end %>
+  <tr>
+    <th><%= t('view.task_status') %>: </th>
+    <td><%= @target_task.status %></td>
+  </tr>
+  <tr>
+    <th><%= t('view.task_priority') %>:</th>
+    <td><%= @target_task.priority_i18n %></td>
+  </tr>
+</table>
