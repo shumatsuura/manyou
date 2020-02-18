@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root 'tasks#home'
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  
   resources :tasks do
     collection do
       get :calendar

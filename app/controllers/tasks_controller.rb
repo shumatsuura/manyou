@@ -84,7 +84,6 @@ class TasksController < ApplicationController
   end
 
   def show
-
   end
 
   def new
@@ -105,6 +104,7 @@ class TasksController < ApplicationController
 
   def edit
     @labels = current_user.labels
+
 
   end
 
