@@ -21,6 +21,7 @@ gem 'activestorage-cloudinary-service'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog-aws'
+gem 'simple_calendar', '~> 2.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

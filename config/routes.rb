@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   root 'tasks#home'
-  resources :tasks
+  resources :tasks do
+    collection do
+      get :calendar
+    end
+  end
+
   resources :users, only:[:new, :show, :create, :edit,:update]
   resources :sessions, only:[:new, :create, :destroy]
 

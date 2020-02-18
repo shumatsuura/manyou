@@ -1,0 +1,10 @@
+<div class="container">
+  <%= month_calendar events: @tasks do |date, tasks| %>
+    <%= date.day %>
+    <% tasks.each do |task| %>
+      <div>
+        <%= link_to task.name, task %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
