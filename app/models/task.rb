@@ -21,4 +21,8 @@ class Task < ApplicationRecord
 
   has_many_attached :attached_files
 
+  def start_time
+    self.due ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+  end
+
 end

@@ -15,6 +15,14 @@ class TasksController < ApplicationController
     end
   end
 
+  def calendar
+    if logged_in?
+      @tasks = Task.where(user_id: current_user.id).order(created_at: "DESC").page(params[:page]).per(PER)
+    else
+      redirect_to new_session_path, notice: "ログインしてください。"
+    end
+  end
+
   def search_function
     name_search_keyword = params[:name_search]
     status_search_keyword = params[:status_search]
