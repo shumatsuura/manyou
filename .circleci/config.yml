@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  rspec:
+  build:
     docker:
       - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy # ttps://hub.docker.com/r/circleci/ruby/
         environment:
@@ -31,9 +31,3 @@ jobs:
       - run:
           name: Rspec
           command: bundle exec rspec
-
-workflows:
-  version: 2
-  rubocop_rspec:
-    jobs:
-      - rspec:
