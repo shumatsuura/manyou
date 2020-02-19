@@ -11,7 +11,7 @@ jobs:
           POSTGRES_USER: task_management
           POSTGRES_DB: task_management_test #config/database.ymlで確認
           POSTGRES_HOST_AUTH_METHOD: 'trust'
-    working_directory: ~/repo
+    working_directory: ~/task_management
     steps:
       - checkout
       - restore_cache:
@@ -28,6 +28,12 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
+      # - run:
+      #     name: Set up DB
+      #     command: |
+      #       bundle exec rake db:structure:load --trace
+      #     environment:
+      #       DATABASE_URL: "postgres://usename@localhost:5432/api_test"
       # Rspec
       - run:
           name: Rspec
