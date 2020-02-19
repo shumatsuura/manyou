@@ -20,5 +20,8 @@ CarrierWave.configure do |config|
     when 'development'
       config.fog_directory = 'task-management-development'
       config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/task-management-development'
+    when 'test'
+      config.fog_directory = 'task-management-development'
+      config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/task-management-development'
   end
 end
