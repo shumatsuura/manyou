@@ -6,7 +6,7 @@ jobs:
         environment:
           RAILS_ENV: test #test環境で立ち上げるため
           POSTGRES_HOST: 127.0.0.1 #localhost
-      - image: circleci/postgres:12.0 #ttps://hub.docker.com/r/circleci/postgres
+      - image: circleci/postgres:9.4 #ttps://hub.docker.com/r/circleci/postgres
         environment:
           POSTGRES_USER: task_management
           POSTGRES_DB: task_management_test #config/database.ymlで確認
