@@ -1,58 +1,10 @@
-# version: 2
-# jobs:
-#   build:
-#     docker:
-#       - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy # ttps://hub.docker.com/r/circleci/ruby/
-#         environment:
-#           RAILS_ENV: test #test環境で立ち上げるため
-#       - image: circleci/postgres:9.4 #ttps://hub.docker.com/r/circleci/postgres
-#         environment:
-#           # POSTGRES_HOST: 127.0.0.1 #localhost
-#           POSTGRES_USER: task_management
-#           POSTGRES_DB: task_management_test #config/database.ymlで確認
-#           POSTGRES_HOST_AUTH_METHOD: 'trust'
-#     working_directory: ~/task_management
-#     steps:
-#       - checkout
-#       - restore_cache:
-#           keys:
-#             - v1-dependencies-{{ checksum "Gemfile.lock" }}
-#             # fallback to using the latest cache if no exact match is found
-#             # このファイル内容が変更されている場合は処理をスキップします
-#             - v1-dependencies- # 文字列に一致するキャッシュのうち、最新のものを検索します
-#       - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-#       - run: yarn install
-#       - save_cache:
-#           paths:
-#             - ./vendor/bundle
-#           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-#
-#       # - run: bundle exec rake db:create
-#       # - run: bundle exec rake db:schema:load
-#       # - run:
-#       #     name: Set up DB
-#       #     command: |
-#       #       bundle exec rake db:structure:load --trace
-#       #       bundle exec rake db:migrate
-#       #     environment:
-#       #       DATABASE_URL: "postgres://usename@localhost:5432/task_management_test"
-#       - run:
-#           name: DB を待機
-#           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-#       - run:
-#           name: Database setup
-#           command: bin/rails db:schema:load --trace
-#       # Rspec
-#       - run:
-#           name: Rspec
-#           command: bundle exec rspec
 
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
     parallelism: 3 # run three instances of this job in parallel
     docker: # run the steps with Docker
-      - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy # ...with this image as the primary container; this is where all `steps` will run
+      - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy # ttps://hub.docker.com/r/circleci/ruby/
         environment: # environment variables for primary container
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -60,7 +12,7 @@ jobs: # a collection of steps
           PGHOST: 127.0.0.1
           PGUSER: circleci-demo-ruby
           RAILS_ENV: test
-      - image: circleci/postgres:12.0 # database image
+      - image: circleci/postgres:12.0 # database image #ttps://hub.docker.com/r/circleci/postgres
         environment: # environment variables for database
           POSTGRES_USER: circleci-demo-ruby
           POSTGRES_DB: rails_blog
@@ -114,7 +66,7 @@ jobs: # a collection of steps
       #     name: Database setup
       #     command: bin/rails db:schema:load --trace
       - run:
-          name: Database setup
+          name: Database setup #デフォルトでは上記のコメントアウトしたコードだったがDBが存在しないというエラーを吐いたためこのコードに変更
           command: |
             bundle exec bin/rails db:create
             bundle exec rails db:migrate
@@ -126,7 +78,9 @@ jobs: # a collection of steps
                               --out test_results/rspec.xml \
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test_results
