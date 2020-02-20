@@ -84,16 +84,12 @@ class TasksController < ApplicationController
   end
 
   def show
+    TaskMailer.notification_mail(@task).deliver
   end
 
   def new
     @task = Task.new
     @labels = current_user.labels
-    begin
-      raise 'Something went wrong!'
-    rescue => exception
-      Bugsnag.notify(exception)
-    end
   end
 
   def create
