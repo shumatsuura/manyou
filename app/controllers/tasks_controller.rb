@@ -10,7 +10,7 @@ class TasksController < ApplicationController
 
       search_function
       sort_function(@tasks)
-      Bugsnag.notify(exception)
+      Bugsnag.notify("exception")
     else
       redirect_to new_session_path, notice: "ログインしてください。"
     end
