@@ -10,7 +10,11 @@ class TasksController < ApplicationController
 
       search_function
       sort_function(@tasks)
-      Bugsnag.notify("exception")
+      begin
+        raise 'Something went wrong!'
+      rescue => exception
+        Bugsnag.notify(exception)
+      end
     else
       redirect_to new_session_path, notice: "ログインしてください。"
     end
