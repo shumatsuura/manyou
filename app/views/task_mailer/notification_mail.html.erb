@@ -1,28 +1,28 @@
 <h1>Nortification</h1>
-<%= "Dear #{@target_task.user.name}"%>
+<%#= "Dear #{@target_task.user.name}"%>
 <p>At present, following task is not completed.</p>
 
-<table class="table">
+<!-- <table class="table">
   <tr>
-    <th><%= t('view.task_name') %>:</th>
-    <td><%= @target_task.name %></td>
+    <th><%#= t('view.task_name') %>:</th>
+    <td><%#= @target_task.name %></td>
   </tr>
   <tr>
-    <th><%= t('view.task_description') %>:</th>
-    <td><%= @target_task.description %></td>
+    <th><%#= t('view.task_description') %>:</th>
+    <td><%#= @target_task.description %></td>
   </tr>
-  <% if @target_task.due %>
+  <%# if @target_task.due %>
     <tr>
-      <th><%= t('view.task_due') %>:</th>
-      <td><%= @target_task.due.strftime("%Y年%m月%d日 %H:%M") %> </td>
+      <th><%#= t('view.task_due') %>:</th>
+      <td><%#= @target_task.due.strftime("%Y年%m月%d日 %H:%M") %> </td>
     </tr>
-  <% end %>
+  <%# end %>
   <tr>
-    <th><%= t('view.task_status') %>: </th>
-    <td><%= @target_task.status %></td>
+    <th><%#= t('view.task_status') %>: </th>
+    <td><%#= @target_task.status %></td>
   </tr>
   <tr>
-    <th><%= t('view.task_priority') %>:</th>
-    <td><%= @target_task.priority_i18n %></td>
+    <th><%#= t('view.task_priority') %>:</th>
+    <td><%#= @target_task.priority_i18n %></td>
   </tr>
-</table>
+</table> -->
