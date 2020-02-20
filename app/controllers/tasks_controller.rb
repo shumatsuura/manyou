@@ -10,11 +10,6 @@ class TasksController < ApplicationController
 
       search_function
       sort_function(@tasks)
-      begin
-        raise 'Something went wrong!'
-      rescue => exception
-        Bugsnag.notify(exception)
-      end
     else
       redirect_to new_session_path, notice: "ログインしてください。"
     end
@@ -94,6 +89,11 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @labels = current_user.labels
+    begin
+      raise 'Something went wrong!'
+    rescue => exception
+      Bugsnag.notify(exception)
+    end
   end
 
   def create
